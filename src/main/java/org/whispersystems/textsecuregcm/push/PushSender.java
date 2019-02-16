@@ -80,7 +80,7 @@ public class PushSender implements Managed {
       throws NotPushRegisteredException
   {
     if      (device.getGcmId() != null)    sendGcmNotification(account, device);
-    else if (device.getApnId() != null)    sendApnNotification(account, device, true);
+    // else if (device.getApnId() != null)    sendApnNotification(account, device, true);
     else if (!device.getFetchesMessages()) throw new NotPushRegisteredException("No notification possible!");
   }
 
@@ -90,7 +90,7 @@ public class PushSender implements Managed {
 
   private void sendSynchronousMessage(Account account, Device device, Envelope message) {
     if      (device.getGcmId() != null)   sendGcmMessage(account, device, message);
-    else if (device.getApnId() != null)   sendApnMessage(account, device, message);
+    // else if (device.getApnId() != null)   sendApnMessage(account, device, message);
     else if (device.getFetchesMessages()) sendWebSocketMessage(account, device, message);
     else                                  throw new AssertionError();
   }
@@ -142,7 +142,7 @@ public class PushSender implements Managed {
 
   @Override
   public void start() throws Exception {
-    apnSender.start();
+    // apnSender.start();
     gcmSender.start();
   }
 
@@ -151,7 +151,7 @@ public class PushSender implements Managed {
     executor.shutdown();
     executor.awaitTermination(5, TimeUnit.MINUTES);
 
-    apnSender.stop();
+    // apnSender.stop();
     gcmSender.stop();
   }
 
